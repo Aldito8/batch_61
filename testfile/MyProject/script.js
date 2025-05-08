@@ -1,5 +1,3 @@
-console.log(document.getElementById("startDate"))
-
 document.addEventListener("click", function dateChange() {
     startDate.max = new Date().toISOString().split('T')[0];
     endDate.max = new Date().toISOString().split('T')[0];
@@ -8,7 +6,6 @@ document.addEventListener("click", function dateChange() {
 
 function dateChange() {
     let endDate = document.getElementById("endDate")
-    console.log("a")
     if (document.getElementById("startDate").value != '') {
         endDate.min = new Date(document.getElementById("startDate").value).toISOString().split('T')[0]
         endDate.disabled = false
@@ -34,7 +31,7 @@ function getData(event) {
     let reactJs = document.getElementById("reactJs").checked;
     let nextJs = document.getElementById("nextJs").checked;
     let typeScript = document.getElementById("typeScript").checked;
-    let inputImage = document.getElementById("inputImage");
+    let inputImage = document.getElementById("inputImage").files;
 
     let project = { projectName, startDate, endDate, description, nodeJs, reactJs, nextJs, typeScript, inputImage }
 
@@ -65,7 +62,11 @@ function changeElement() {
         let countif0day = (dayDiff == 0 && monthDiff == 0 && yearDiff == 0) ? `kurang dari 1 hari` : ""
 
         // Image
-        let projectImage = inputImage.files.length > 0 ? URL.createObjectURL(inputImage.files[0]) : ""
+        let projectImage = "";
+        if (myProject[i].inputImage.length > 0) {
+            projectImage = URL.createObjectURL(myProject[i].inputImage[0]);
+        }
+
 
         // Card
         document.getElementById("content").innerHTML += `
