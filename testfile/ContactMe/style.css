@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #dce0e4;
+}
+.select-dropdown {
+  line-height: 1.5;
+  background: #fff url(https://cdn-icons-png.flaticon.com/256/0/159.png)
+    no-repeat right 0.75rem center;
+  background-size: 8px 10px;
+  -webkit-appearance: none;
+  appearance: none;
+}
