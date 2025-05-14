@@ -9,7 +9,10 @@ function dateChange() {
     if (document.getElementById("startDate").value != '') {
         endDate.min = new Date(document.getElementById("startDate").value).toISOString().split('T')[0]
         endDate.disabled = false
-    } else {
+    } else if (document.getElementById("startDate").value) {
+
+    }
+    else {
         endDate.min = ''
         endDate.value = ''
         endDate.disabled = true
@@ -40,31 +43,38 @@ function getData(event) {
     changeElement()
 }
 
+const number = [-1, 1, 2, 3]
+const filtered = number.filter(n => n >= 0)
+const item = filtered.map(n => n + 1)
+console.log(item)
+
+
 // Change Element My Project
 function changeElement() {
-
     document.getElementById("content").innerHTML = ""
 
-    for (let i = 0; i < myProject.length; i++) {
 
+    myProject.map(project => {
+
+        console.log(project)
         // Icon
-        let isNodeJs = myProject[i].nodeJs ? `<i class="fa-solid fa-share-nodes" ></i>` : ""
-        let isReactJs = myProject[i].reactJs ? `<i class="fa-brands fa-react"></i> ` : ""
-        let isNextJs = myProject[i].nextJs ? `<i class="fa-solid fa-n"></i> ` : ""
-        let isTypeScript = myProject[i].typeScript ? `<i class="fa-solid fa-subscript"></i> ` : ""
+        let isNodeJs = project.nodeJs ? `<i class="fa-solid fa-share-nodes" ></i>` : ""
+        let isReactJs = project.reactJs ? `<i class="fa-brands fa-react"></i> ` : ""
+        let isNextJs = project.nextJs ? `<i class="fa-solid fa-n"></i> ` : ""
+        let isTypeScript = project.typeScript ? `<i class="fa-solid fa-subscript"></i> ` : ""
 
         // Date
-        let dateDiff = dateSum(myProject[i].startDate, myProject[i].endDate)
+        let dateDiff = dateSum(project.startDate, project.endDate)
         let [yearDiff, monthDiff, dayDiff, year] = dateDiff
-        let yearCount = (yearDiff > 0) ? `${yearDiff} tahun` : ""
+        let yearCount = (yearDiff = 0) ? `${yearDiff} tahun` : ""
         let monthCount = (monthDiff > 0) ? `${monthDiff} bulan` : ""
         let dayCount = (dayDiff > 0) ? `${dayDiff} hari` : ""
         let countif0day = (dayDiff == 0 && monthDiff == 0 && yearDiff == 0) ? `kurang dari 1 hari` : ""
 
         // Image
         let projectImage = "";
-        if (myProject[i].inputImage.length > 0) {
-            projectImage = URL.createObjectURL(myProject[i].inputImage[0]);
+        if (project.inputImage.length > 0) {
+            projectImage = URL.createObjectURL(project.inputImage[0]);
         }
 
 
@@ -73,9 +83,9 @@ function changeElement() {
         <div class="card" style = "width: 19rem; padding: 0;" >
             <img class="card-img-top p-2" src="${projectImage}" style = "object-fit:contain ;"/>
             <div class="card-body">
-                <h4 class="card-text p-0 m-0">${myProject[i].projectName} ${year}</h4>
+                <h4 class="card-text p-0 m-0">${project.projectName} ${year}</h4>
                 <p class="card-text p-0 m-0"> durasi ${dayCount} ${monthCount} ${yearCount} ${countif0day}</p>
-                <p class="card-text text-description" maxleght="20">${myProject[i].description}</p>
+                <p class="card-text text-description" maxleght="20">${project.description}</p>
                 <div class="icon-group">
                     ${isNodeJs}
                     ${isReactJs}
@@ -89,7 +99,53 @@ function changeElement() {
             </div>
         </div>
         `
-    }
+    })
+
+    // for (let i = 0; i < myProject.length; i++) {
+
+    //     // Icon
+    //     let isNodeJs = myProject[i].nodeJs ? `<i class="fa-solid fa-share-nodes" ></i>` : ""
+    //     let isReactJs = myProject[i].reactJs ? `<i class="fa-brands fa-react"></i> ` : ""
+    //     let isNextJs = myProject[i].nextJs ? `<i class="fa-solid fa-n"></i> ` : ""
+    //     let isTypeScript = myProject[i].typeScript ? `<i class="fa-solid fa-subscript"></i> ` : ""
+
+    //     // Date
+    //     let dateDiff = dateSum(myProject[i].startDate, myProject[i].endDate)
+    //     let [yearDiff, monthDiff, dayDiff, year] = dateDiff
+    //     let yearCount = (yearDiff = 0) ? `${yearDiff} tahun` : ""
+    //     let monthCount = (monthDiff > 0) ? `${monthDiff} bulan` : ""
+    //     let dayCount = (dayDiff > 0) ? `${dayDiff} hari` : ""
+    //     let countif0day = (dayDiff == 0 && monthDiff == 0 && yearDiff == 0) ? `kurang dari 1 hari` : ""
+
+    //     // Image
+    //     let projectImage = "";
+    //     if (myProject[i].inputImage.length > 0) {
+    //         projectImage = URL.createObjectURL(myProject[i].inputImage[0]);
+    //     }
+
+
+    //     // Card
+    //     document.getElementById("content").innerHTML += `
+    //     <div class="card" style = "width: 19rem; padding: 0;" >
+    //         <img class="card-img-top p-2" src="${projectImage}" style = "object-fit:contain ;"/>
+    //         <div class="card-body">
+    //             <h4 class="card-text p-0 m-0">${myProject[i].projectName} ${year}</h4>
+    //             <p class="card-text p-0 m-0"> durasi ${dayCount} ${monthCount} ${yearCount} ${countif0day}</p>
+    //             <p class="card-text text-description" maxleght="20">${myProject[i].description}</p>
+    //             <div class="icon-group">
+    //                 ${isNodeJs}
+    //                 ${isReactJs}
+    //                 ${isNextJs}
+    //                 ${isTypeScript}
+    //             </div>
+    //             <div class="d-flex gap-2">
+    //                 <a href="#" class="btn btn-dark w-50 p-0">edit</a>
+    //                 <a href="#" class="btn btn-dark w-50 p-0">delete</a>
+    //             </div>
+    //         </div>
+    //     </div>
+    //     `
+    // }
 }
 
 // Date Detail
